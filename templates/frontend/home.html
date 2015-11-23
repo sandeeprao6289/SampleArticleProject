@@ -25,36 +25,7 @@
 <body>
     <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Sample Project
-                    </a>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Shortcuts</a>
-                </li>
-                <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
+        {% include 'side-navigation.html' %}
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id='content'>
@@ -62,157 +33,13 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1>Simple Sidebar</h1>
-                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
+                            <h1>Sample Project</h1>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->
             <hr>
-            <div id='featured-articles'>
-                <div class="row">
-                    <div class="col-md-7">
-                        <a href="#">
-                            <img alt="" src="media/article/images/617ecdd1-8b9e-484d-b31d-0bf46f6be977.jpg" class="img-responsive">
-                        </a>
-                    </div>
-                    <div class="col-md-5">
-                        <h4>Kim and Kanye: first the baby, now the proposal. I can't wait for</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, temporibus, dolores, at, praesentium ut unde repudiandae voluptatum sit ab debitis suscipit fugiat natus velit excepturi amet commodi deleniti alias possimus!</p>
-                        <a href="#" class="btn btn-primary">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    </div>
-                </div>
-            </div>
-            <div id='article-content-wrapper'>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h3>Featured Articles</h3>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="media/article/images/617ecdd1-8b9e-484d-b31d-0bf46f6be977.jpg">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="/media/article/images/170afee8-d1f9-42f2-a560-2978e9f95a3c.jpg">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id='article-content-wrapper'>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h3>Latest Articles</h3>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 hero-feature">
-                        <div class="thumbnail">
-                            <img alt="" src="http://placehold.it/800x500">
-                            <div class="caption">
-                                <h3>Feature Label</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- /#wrapper -->

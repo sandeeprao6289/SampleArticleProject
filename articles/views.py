@@ -30,6 +30,8 @@ def article_details(request,slug,template="article/article-details.html"):
     article = Article.objects.get(slug = slug)
     data = {}
     data['article'] = article
+    articles = Article.objects.all().exclude(id__in = [article.id]).order_by('?')[:4]
+    data['articles'] =articles
     return TemplateResponse(request, template, data)
 
 def add_article(request, template="article/add-article.html"):
@@ -56,6 +58,11 @@ def add_article(request, template="article/add-article.html"):
                 savearticleform.images.add(cover_image)
                 
             photo_ids = request.POST.getlist('images',[])
+            is_featured = request.POST.get('is_featured')
+            if is_featured == 'True':
+                savearticleform.is_featured = True
+            else:
+                savearticleform.is_featured = False
             if photo_ids:
                 for photoid in photo_ids:
                     image = ArticleImage.objects.get(id = int(photoid))

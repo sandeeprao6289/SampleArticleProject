@@ -82,7 +82,31 @@
                 </div>
                 {% endif %}
                 {% endwith %}
+                <hr>
+                {% if articles %}
             </div>
+            <div id='article-content-wrapper'>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>What To Read Next</h3>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    {% for article in articles %}
+                    <div class="col-md-3 col-sm-6 hero-feature">
+                        <div class="thumbnail">
+                            {% with article.get_cover_image as cover_image %}
+                            <img alt="" src="{% if cover_image %}{% thumbnail cover_image.image 220x0 %}{% else %}http://placehold.it/800x500{% endif %}" style="height: 25% ! important;">
+                            {% endwith %}
+                            <div class="caption">
+                                <p><a style="text-decoration: none; color: rgb(0, 0, 0);" href='{{article.get_absolute_url}}'>{{article.title|title|truncatechars:50}}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
     <!-- /#wrapper -->
