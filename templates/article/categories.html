@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{STATIC_URL}}css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<style>
+.edit-icon{
+    float:right;
+    color: #000000;
+    margin-right:10px;
+}
+.delete-icon{
+    float:right;
+    color: #000000;
+}
+</style>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        {% include 'side-navigation.html' %}
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id='content'>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Categories</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+            <hr>
+            <div class="container-fluid">
+                <a type="button" class="btn btn-primary" style='float:right;margin-right:10px;' onclick='add_category();' data-toggle="modal" data-target="#myModal">Add New Category</a>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div id='categories'>
+                            {% include 'article/include-article-categories.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="category_lightbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Category</h4>
+          </div>
+          <div class="modal-body">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /#wrapper -->
+    
+    <!-- jQuery -->
+    <script src="{{STATIC_URL}}js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    
+    function add_category(){
+        target = "{% url 'add_category' %}?";
+       // load the url and show modal on success
+       $("#category_lightbox .modal-body").load(target, function() {
+            $("#category_lightbox").modal("show");
+       });
+    }
+    
+    function load_category(catid){
+        target = "{% url 'add_category' %}?"+ 'catid='+catid;
+       // load the url and show modal on success
+       $("#category_lightbox .modal-body").load(target, function() {
+            $("#category_lightbox").modal("show");
+       });
+    }
+    
+    function delete_category(catid)
+        {
+            dataString='id='+catid;
+            $.ajax({
+            type: "GET",
+            url: "{% url 'delete_category' %}",
+            data: dataString,
+            dataType:'JSON',
+            success: function(data){
+                    if(data.status){
+                        $('#cat_'+catid).remove();
+                    }
+                }
+            });
+         }
+    
+    </script>
+</body>
+
+</html>

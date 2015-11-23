@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load thumbnail %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{STATIC_URL}}css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+.attach_buuton{
+       margin-top:-30px;
+       position:absolute;
+       z-index:-1;
+       margin-left:20px;
+     }
+.delete_icon{
+    background-color: white;
+    border-radius: 50px;
+    padding: 10px 20px;
+    position: relative;
+    top: -50px;
+    color:#000000;
+}
+</style>
+<body>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        {% include 'side-navigation.html' %}
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id='content'>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Add Article</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+            <hr>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <form role="form" id='aform' name='aform' action='{% url "add_article" %}' method='POST'>{% csrf_token %}
+                          <div class="form-group">
+                            {% if article %}<input type='hidden' name='aid' value='{{article.id}}'>{% endif %}
+                            <label for="email">Title:</label>
+                            {{form.title}}
+                          </div>
+                          <div class="form-group">
+                            <label for="sel1">Select Category:</label>
+                            {{form.category}}
+                          </div>
+                          <div class="form-group">
+                            <label for="sel1">Select Author:</label>
+                            {{form.author}}
+                          </div>
+                          <div class="form-group">
+                            <label for="pwd">Summary:</label>
+                            {{form.summary}}
+                          </div>
+                          <div class="form-group">
+                            <label for="pwd">Content:</label>
+                            {{form.content}}
+                          </div>
+                        <hr>
+                          <div class="form-group" >
+                            <div class='row' style='margin-bottom:10px;'>
+                              <div class="updload-file">
+                                <input style="opacity:0;width:160px;" type="file" name="articleimage" id="fileupload" data-url="{% url 'upload_article_image' %}?cover=True" accept="image/*" tabindex="-1">
+                                <span class="btn btn-primary attach_buuton" >Add Cover Image</span>
+                              </div>
+                            </div>
+                              <div class="row" id='cover_image_row'>
+                              {% if article.get_cover_image %}
+                              {% with article.get_cover_image as cover_image %}
+                                <div id='image_{{cover_image.id}}' name='images' class="col-lg-3 col-md-4 col-xs-6 thumb">
+                                  <span class="thumbnail">
+                                      <img alt="" src="{% thumbnail cover_image.image 400x300 %}" class="img-responsive" style='max-height: 100px;'>
+                                  </span>
+                                  <a href="javascript:void(0)" onclick='delete_image({{cover_image.id}})'><span class="delete_icon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                  <input type='hidden' name='cover_image' value='{{cover_image.id}}'>
+                                </div>
+                                {% endwith %}
+                                {% endif %}
+                              </div>
+                         </div>
+                          <hr>
+                          <div class="form-group" style='width:100%;'>
+                            <div class ="row" style='margin-bottom:10px;'>
+                                  <div class="updload-file">
+                                    <input style="opacity:0;width:160px;" type="file" name="articleimage" id="fileupload2" multiple=""  data-url="{% url 'upload_article_image' %}" accept="image/*" tabindex="-1">
+                                    <span class="btn btn-primary attach_buuton" >Add Images</span>
+                                  </div>
+                              </div>
+                             <div class="row" id='article_images'>
+                              {% if article.get_images %}
+                              {% with article.get_images as images %}
+                              {% for image in images %}
+                                <div id='image_{{image.id}}' name='images' class="col-lg-3 col-md-4 col-xs-6 thumb">
+                                  <span class="thumbnail">
+                                      <img alt="" src="{% thumbnail image.image 400x300 %}" class="img-responsive" style='max-height: 100px;'>
+                                  </span>
+                                  <a href="javascript:void(0)" onclick='delete_image({{image.id}})'><span class="delete_icon glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                  <input type='hidden' name='images' value='{{image.id}}'>
+                                </div>
+                                {% endfor %}
+                                {% endwith %}
+                                {% endif %}
+                              </div>
+                          </div>
+                          <button type="button" class="btn btn-default" onclick="location.replace('{% url 'list_articles' %}')">Cancel</button>
+                          <button role="button" name="save_button" class="btn btn-primary" type="submit">{% if article %}UPDATE{% else %}PUBLISH{% endif %}</span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/file-upload-js/vendor/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/file-upload-js/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/file-upload-js/jquery.fileupload.js"></script>
+    <!-- jQuery -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    
+    $(function () {
+        $('#fileupload').fileupload({
+            dataType: 'json',
+            done: function (e, data) {
+                if(data._response.result.cover){
+                    $('#cover_image_row').append(data._response.result.html);
+                }
+            }
+        });
+        $('#fileupload2').fileupload({
+            dataType: 'json',
+            done: function (e, data) {
+                if(data._response.result.status){
+                    $('#article_images').append(data._response.result.html);
+                }
+            }
+        });
+    });
+    function delete_image(id){
+        dataString='id='+id;
+        $.ajax({
+        type: "GET",
+        url: "{% url 'delete_image' %}",
+        data: dataString,
+        dataType:'JSON',
+        success: function(data){
+                if(data.status){
+                    $('#image_'+id).remove();
+                }
+            }
+        });
+    }
+    </script>
+
+</body>
+
+</html>

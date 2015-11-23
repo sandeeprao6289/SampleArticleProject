@@ -1,0 +1,9 @@
+
+    <ul class="list-group" id='authors-list'>
+    {% for author in authors %}
+    <li class="list-group-item" id='auth_{{author.id}}'>{{author.name}}  
+        <a title='Delete Author' onclick="delete_author('{{author.id}}')"><span aria-hidden="true" class="glyphicon glyphicon-trash delete-icon"></span></a>
+        <a title='Edit Author' onclick="load_author('{{author.id}}')"><span aria-hidden="true" class="glyphicon glyphicon-pencil edit-icon"></span></a>
+    </li>
+    {% endfor %}
+    </ul>

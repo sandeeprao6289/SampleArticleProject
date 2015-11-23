@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{STATIC_URL}}css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<style>
+.edit-icon{
+    float:right;
+    color: #000000;
+    margin-right:10px;
+}
+.delete-icon{
+    float:right;
+    color: #000000;
+}
+</style>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        {% include 'side-navigation.html' %}
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id='content'>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Authors</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+            <hr>
+            <div class="container-fluid">
+                <a type="button" class="btn btn-primary" style='float:right;margin-right:10px;' onclick='add_author();' data-toggle="modal" data-target="#myModal">Add New Author</a>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div id='authors'>
+                            {% include 'article/include-article-authors.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="author_lightbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Author</h4>
+          </div>
+          <div class="modal-body">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /#wrapper -->
+    
+    <!-- jQuery -->
+    <script src="{{STATIC_URL}}js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    
+    function add_author(){
+        target = "{% url 'add_author' %}?";
+       // load the url and show modal on success
+       $("#author_lightbox .modal-body").load(target, function() {
+            $("#author_lightbox").modal("show");
+       });
+    }
+    
+    function load_author(authid){
+        target = "{% url 'add_author' %}?"+ 'authid='+authid;
+       // load the url and show modal on success
+       $("#author_lightbox .modal-body").load(target, function() {
+            $("#author_lightbox").modal("show");
+       });
+    }
+    function delete_author(authid)
+        {
+            dataString='id='+authid;
+            $.ajax({
+            type: "GET",
+            url: "{% url 'delete_author' %}",
+            data: dataString,
+            dataType:'JSON',
+            success: function(data){
+                    if(data.status){
+                        $('#auth_'+authid).remove();
+                    }
+                }
+            });
+         }
+    
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+
+    <ul class="list-group" id='categories-list'>
+    {% for category in categories %}
+    <li class="list-group-item" id='cat_{{category.id}}'>{{category.name}}  
+        <a title='Delete Category' onclick="delete_category('{{category.id}}')"><span aria-hidden="true" class="glyphicon glyphicon-trash delete-icon"></span></a>
+        <a title='Edit Category' onclick="load_category('{{category.id}}')"><span aria-hidden="true" class="glyphicon glyphicon-pencil edit-icon"></span></a>
+    </li>
+    {% endfor %}
+    </ul>

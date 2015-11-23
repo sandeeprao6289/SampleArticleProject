@@ -1,0 +1,106 @@
+{% load thumbnail %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{STATIC_URL}}css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        {% include 'side-navigation.html' %}
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id='content'>
+            <!--div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </div-->
+            <div class="col-lg-10">
+                <!-- Blog Post -->
+                <!-- Title -->
+                <h1>{{article.title|title}}</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by <a href="#">{{article.author|title}}</a>
+                </p>
+                <hr>
+                <!-- Date/Time -->
+                <p><span class="glyphicon glyphicon-time"></span> Posted on {{article.published_on}}</p>
+                <a href='{% url "delete_article" %}?aid={{article.id}}' style='float:right;margin-top: -35px;margin-right: 65px;' type="button" class="btn btn-danger" role="button">DELETE</a>
+                <a href='{% url "add_article" %}?aid={{article.id}}' style='float:right;margin-top: -35px;' type="button" class="btn btn-primary" role="button">EDIT</a>
+                <hr>
+                <!-- Preview Image -->
+                {% if article.get_cover_image %}
+                {% with article.get_cover_image as cover_image %}
+                <span class='thumbnail'> 
+                    <img alt="" src="{% if cover_image %}{% thumbnail cover_image.image 900x300 %}{% endif %}" class="img-responsive">
+                </span>
+                {% endwith %}
+                <hr>
+                {% endif %}
+                <!-- Post Content -->
+                <p class="lead">{{article.summary}}</p>
+                <p>{{article.content}}</p>
+                <hr>
+                {% with article.get_images as images %}
+                {% if images %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4>Images</h4>
+                    </div>
+                    {% for image in images %}
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a href="#" class="thumbnail">
+                            <img alt="" src="{% thumbnail image.image 400x300 %}" class="img-responsive">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+    
+    <!-- jQuery -->
+    <script src="{{STATIC_URL}}js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
+
+</html>
