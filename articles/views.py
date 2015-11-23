@@ -14,9 +14,11 @@ from articles.forms import ArticleForm
 
 def list_articles(request, template="article/article-home.html"):
     data = {}
+    ids=[]
 
     featured_article = Article.objects.filter(is_featured = True).order_by('?')[:1]
-    featured_articles = Article.objects.filter(is_featured = True).exclude(id__in = [featured_article[0].id]).order_by('-id')[:4]
+    for a in featured_article:ids.append(a.id)
+    featured_articles = Article.objects.filter(is_featured = True).exclude(id__in = ids).order_by('-id')
     articles = Article.objects.filter(is_featured = False)
     
     data['featured_article'] = featured_article
@@ -73,15 +75,12 @@ def add_article(request, template="article/add-article.html"):
     data['form'] = form
     return TemplateResponse(request, template, data)
 
-
 def delete_article(request):
     aid = request.REQUEST.get('aid')
     article = Article.objects.get(id = aid)
     article.delete()
     return HttpResponseRedirect(reverse('list_articles'))
     
-
-
 def delete_image(request):
     data={}
     id = request.REQUEST.get('id')
